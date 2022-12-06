@@ -7,6 +7,7 @@ import {Alert,Button} from 'react-bootstrap';
 
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
 
+
 class Search extends React.Component {
   constructor() {
     super();
@@ -15,6 +16,7 @@ class Search extends React.Component {
       restaurantData: restaurantData,
       locationData: locationData,
       error: null,
+      map: '',
     }
   }
 
@@ -33,6 +35,7 @@ class Search extends React.Component {
       this.setState({
         locationSearch: e.target.search.value,
         locationData: response.data[0],
+        map:`https://maps.locationiq.com/v3/staticmap?key=${ACCESS_KEY}&center=${response.data[0].lat},${response.data[0].lon}&zoom=12`
       });
     } catch (err) {
       this.setState({ error: err.response.data });
@@ -67,7 +70,7 @@ class Search extends React.Component {
           : <p>('')</p>
         }
         {this.state.locationSearch && this.state.locationData
-          ? <div id="map"><img src={map} alt="location map" /></div>
+          ? <div id="map"><img src={this.state.map} alt="location map" /></div>
           : null
         }
         {this.state.locationSearch && this.state.restaurantData

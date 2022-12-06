@@ -22,7 +22,8 @@ React is being used to build this site. Javascript is mostly being used within t
 ## Credit and Collaborations
 
 Starter code was given by our instructor Jacob Knaack.
-TA's helped troubleshoot code and provided solutions.
+TA's helped troubleshoot code and provided solutions for map.
+Used code from code review for errors.
 
 Time Estimates
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
@@ -37,23 +38,32 @@ Finish time: 2030
 
 Actual time needed to complete: 4.5 hours
 
-Name of feature: 1. Set up your React repository & API keys.
+Name of feature: 2. Locations:
+
+Estimate of time needed to complete: 1.5 hours
+
+Start time: 2040
+
+Finish time: 2230
+
+Actual time needed to complete: 1 hour 50 minutes
+
+Name of feature: 3. Map
 
 Estimate of time needed to complete: 1 hr
 
-Start time: 1600
+Start time: 1330
 
-Finish time: 2030
+Finish time: 1440
 
-Actual time needed to complete: 4.5 hours
+Actual time needed to complete: 1 hour 10 minutes
 
-Name of feature: 1. Set up your React repository & API keys.
+Name of feature: 4. Errors:
 
-Estimate of time needed to complete: 1 hr
+Estimate of time needed to complete: 1 hour
 
-Start time: 1600
+Start time: 1230
 
-Finish time: 2030
+Finish time: 1330
 
-Actual time needed to complete: 4.5 hours
-
+Actual time needed to complete: 1 hour
