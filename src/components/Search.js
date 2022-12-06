@@ -3,7 +3,8 @@ import map from '../images/map.png';
 import restaurantData from '../data/restaurants.json';
 import locationData from '../data/location.json';
 import axios from 'axios';
-import Alert from 'react-bootstrap/Alert';
+import {Alert,Button} from 'react-bootstrap';
+
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
 
 class Search extends React.Component {
@@ -24,43 +25,49 @@ class Search extends React.Component {
       method: 'GET',
       url: `https://us1.locationiq.com/v1/search?key=${ACCESS_KEY}&q=${e.target.search.value}&format=json`
     }
-    
-// console.log(process.env.REACT_APP_ACCESS_KEY);
+
+
     // make our location IQ request;
-   
-    let response = await axios(request);
-    this.setState({
-      locationSearch: e.target.search.value,
-      locationData: response.data[0],
-    }); 
+    try {
+      let response = await axios(request);
+      this.setState({
+        locationSearch: e.target.search.value,
+        locationData: response.data[0],
+      });
+    } catch (err) {
+      this.setState({ error: err.response.data });
+    }
   }
 
+  handleError = () => {
+    this.setState({ error: null });
+  }
   render() {
     return (
       <div id="city-search">
         <form onSubmit={this.handleLocationSearch}>
           <label>Search for a location</label>
-          <input type="text" name="search" placeholder="Enter City here"/>
+          <input type="text" name="search" placeholder="Enter City here" />
           <button type="submit">Explore!</button>
         </form>
         {this.state.error
-        ? <Alert>This is the Alert</Alert>
-        : <p>Okay</p>
-        } 
-        {this.state.locationData 
+          ? <><Alert>Enter a valid response. </Alert><Button onClick={this.handleError}>Dismiss</Button></>
+          : <p></p>
+        }
+        {this.state.locationData
           ? <p>{this.state.locationData.display_name}</p>
           : <p>Please search for a city!</p>
         }
-        {this.state.locationData 
+        {this.state.locationData
           ? <p>{this.state.locationData.lat}</p>
           : <p>('')</p>
         }
-        {this.state.locationData 
+        {this.state.locationData
           ? <p>{this.state.locationData.lon}</p>
           : <p>('')</p>
         }
         {this.state.locationSearch && this.state.locationData
-          ? <div id="map"><img src={map} alt="location map"/></div>
+          ? <div id="map"><img src={map} alt="location map" /></div>
           : null
         }
         {this.state.locationSearch && this.state.restaurantData
