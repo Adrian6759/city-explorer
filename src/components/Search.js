@@ -11,7 +11,7 @@ class Search extends React.Component {
     this.state = {
       locationSearch: '',
       restaurantData: restaurantData,
-      locationData: locationData
+      locationData: locationData,
     }
   }
 
@@ -22,7 +22,7 @@ class Search extends React.Component {
       method: 'GET',
       url: `https://us1.locationiq.com/v1/search?key=${ACCESS_KEY}&q=${e.target.search.value}&format=json`
     }
-console.log(process.env.REACT_APP_ACCESS_KEY);
+// console.log(process.env.REACT_APP_ACCESS_KEY);
     // make our location IQ request;
     let response = await axios(request);
     this.setState({
@@ -42,6 +42,14 @@ console.log(process.env.REACT_APP_ACCESS_KEY);
         {this.state.locationData 
           ? <p>{this.state.locationData.display_name}</p>
           : <p>Please search for a city!</p>
+        }
+        {this.state.locationData 
+          ? <p>{this.state.locationData.lat}</p>
+          : <p>('')</p>
+        }
+        {this.state.locationData 
+          ? <p>{this.state.locationData.lon}</p>
+          : <p>('')</p>
         }
         {this.state.locationSearch && this.state.locationData
           ? <div id="map"><img src={map} alt="location map"/></div>
