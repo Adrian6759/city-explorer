@@ -3,8 +3,9 @@ import map from '../images/map.png';
 import restaurantData from '../data/restaurants.json';
 import locationData from '../data/location.json';
 import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
-// console.log(ACCESS_KEY);
+
 class Search extends React.Component {
   constructor() {
     super();
@@ -12,6 +13,7 @@ class Search extends React.Component {
       locationSearch: '',
       restaurantData: restaurantData,
       locationData: locationData,
+      error: null,
     }
   }
 
@@ -22,8 +24,10 @@ class Search extends React.Component {
       method: 'GET',
       url: `https://us1.locationiq.com/v1/search?key=${ACCESS_KEY}&q=${e.target.search.value}&format=json`
     }
+    
 // console.log(process.env.REACT_APP_ACCESS_KEY);
     // make our location IQ request;
+   
     let response = await axios(request);
     this.setState({
       locationSearch: e.target.search.value,
@@ -39,6 +43,10 @@ class Search extends React.Component {
           <input type="text" name="search" placeholder="Enter City here"/>
           <button type="submit">Explore!</button>
         </form>
+        {this.state.error
+        ? <Alert>This is the Alert</Alert>
+        : <p>Okay</p>
+        } 
         {this.state.locationData 
           ? <p>{this.state.locationData.display_name}</p>
           : <p>Please search for a city!</p>
