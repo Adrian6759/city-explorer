@@ -4,7 +4,7 @@ import restaurantData from '../data/restaurants.json';
 import locationData from '../data/location.json';
 import axios from 'axios';
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
-
+// console.log(ACCESS_KEY);
 class Search extends React.Component {
   constructor() {
     super();
@@ -22,13 +22,13 @@ class Search extends React.Component {
       method: 'GET',
       url: `https://us1.locationiq.com/v1/search?key=${ACCESS_KEY}&q=${e.target.search.value}&format=json`
     }
-
+console.log(process.env.REACT_APP_ACCESS_KEY);
     // make our location IQ request;
     let response = await axios(request);
     this.setState({
       locationSearch: e.target.search.value,
       locationData: response.data[0],
-    });
+    }); 
   }
 
   render() {
@@ -57,3 +57,4 @@ class Search extends React.Component {
 }
 
 export default Search;
+
