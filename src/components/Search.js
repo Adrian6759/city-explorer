@@ -56,7 +56,7 @@ class Search extends React.Component {
           : null
         }
         {this.state.locationSearch && this.state.restaurantData
-          ? <ul>{this.state.restaurantData.map(place => <li>{place.restaurant}</li>)}</ul>
+          ? <ul>{this.state.restaurantData.map(place => <li key={place.restaurant}>{place.restaurant}</li>)}</ul>
           : null
         }
       </div>
