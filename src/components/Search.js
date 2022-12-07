@@ -1,5 +1,5 @@
 import React from 'react';
-import map from '../images/map.png';
+// import Map from '../images/map.png';
 import restaurantData from '../data/restaurants.json';
 import locationData from '../data/location.json';
 import axios from 'axios';
