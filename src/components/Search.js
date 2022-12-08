@@ -4,6 +4,8 @@ import restaurantData from '../data/restaurants.json';
 import locationData from '../data/location.json';
 import axios from 'axios';
 import {Alert,Button} from 'react-bootstrap';
+import Weather from './/Weather.js'
+
 
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
 
@@ -17,10 +19,10 @@ class Search extends React.Component {
       locationData: locationData,
       error: null,
       map: '',
+      weatherArr: []
     }
   }
 
-  // this should query location IQ for geolocation data
   handleLocationSearch = async (e) => {
     e.preventDefault();
     let request = {
@@ -29,19 +31,31 @@ class Search extends React.Component {
     }
 
 
-    // make our location IQ request;
     try {
       let response = await axios(request);
-      this.setState({
+       this.setState({
         locationSearch: e.target.search.value,
         locationData: response.data[0],
         map:`https://maps.locationiq.com/v3/staticmap?key=${ACCESS_KEY}&center=${response.data[0].lat},${response.data[0].lon}&zoom=12`
-      });
+      },this.handleWeather);
     } catch (err) {
       this.setState({ error: err.response.data });
     }
   }
+  handleWeather = async () => {
+    let request = {
+      method: 'GET',
+      url: `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.locationSearch}&lat=${this.state.locationData.lat}&lon=${this.state.locationData.lon}`
+    }
+    try {
+      let response = await axios(request);
+      console.log(response.data);
+      this.setState({weatherArr:response.data})
 
+    } catch (err) {
+      this.setState({ error: err.response.data });
+    }
+  }
   handleError = () => {
     this.setState({ error: null });
   }
@@ -67,6 +81,10 @@ class Search extends React.Component {
         }
         {this.state.locationData
           ? <p>{this.state.locationData.lon}</p>
+          : <p>('')</p>
+        }
+        {this.state.weatherArr
+          ? <Weather data={this.state.weatherArr}/>
           : <p>('')</p>
         }
         {this.state.locationSearch && this.state.locationData
