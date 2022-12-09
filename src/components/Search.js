@@ -69,7 +69,7 @@ class Search extends React.Component {
         </form>
         {this.state.error
           ? <><Alert>Enter a valid response. </Alert><Button onClick={this.handleError}>Dismiss</Button></>
-          : <p></p>
+          : null
         }
         {this.state.locationData
           ? <p>{this.state.locationData.display_name}</p>
