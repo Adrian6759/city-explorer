@@ -5,6 +5,7 @@ import locationData from '../data/location.json';
 import axios from 'axios';
 import {Alert,Button} from 'react-bootstrap';
 import Weather from './/Weather.js'
+import Movie from './/Movie.js'
 
 
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
@@ -19,7 +20,8 @@ class Search extends React.Component {
       locationData: locationData,
       error: null,
       map: '',
-      weatherArr: []
+      weatherArr: [],
+      movieArr: []
     }
   }
 
@@ -56,6 +58,20 @@ class Search extends React.Component {
       this.setState({ error: err.response.data });
     }
   }
+  handleMovie = async () => {
+    let request = {
+      method: 'GET',
+      url: `${process.env.REACT_APP_SERVER}/movie?searchQuery=${this.state.locationSearch}`
+    }
+    try {
+      let responseMovie = await axios(request);
+      console.log(responseMovie.data);
+      this.setState({movieArr:responseMovie.data})
+
+    } catch (err) {
+      this.setState({ error: err.response.data });
+    }
+  }
   handleError = () => {
     this.setState({ error: null });
   }
@@ -85,6 +101,10 @@ class Search extends React.Component {
         }
         {this.state.weatherArr
           ? <Weather data={this.state.weatherArr}/>
+          : <p>('')</p>
+        }
+        {this.state.movieArr
+          ? <Movie data={this.state.movieArr}/>
           : <p>('')</p>
         }
         {this.state.locationSearch && this.state.locationData
