@@ -39,7 +39,10 @@ class Search extends React.Component {
         locationSearch: e.target.search.value,
         locationData: response.data[0],
         map:`https://maps.locationiq.com/v3/staticmap?key=${ACCESS_KEY}&center=${response.data[0].lat},${response.data[0].lon}&zoom=12`
-      },this.handleWeather);
+      },() => {
+        this.handleWeather();
+        this.handleMovie();
+      });
     } catch (err) {
       this.setState({ error: err.response.data });
     }
@@ -61,7 +64,7 @@ class Search extends React.Component {
   handleMovie = async () => {
     let request = {
       method: 'GET',
-      url: `${process.env.REACT_APP_SERVER}/movie?searchQuery=${this.state.locationSearch}`
+      url: `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.locationSearch}`
     }
     try {
       let responseMovie = await axios(request);
